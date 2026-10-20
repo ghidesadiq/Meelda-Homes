@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     </head>
-    <body style="background-color: rgb(255, 255, 255);">
+    <body style="background-color: #fdf6ec;">
         <div class="header">
         <div class="container">
             <div class="navbar">
@@ -18,15 +18,16 @@
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <li><a href="">Home</a></li>
-                        <li>
-                            <a href="products.html" class="btn">Products</a>
-                        </li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Account</a></li>
+                        <li><a href="index.html" class="btn">Home</a></li>
+                        <li><a href="products.html" class="btn">Products</a></li>
+                        <li><a href="about.html" class="btn">About</a></li>
+                        <li><a href="account.html" class="btn">Account</a></li>
                     </ul>
                 </nav>
-                <img src="shopping-cart.png" width="30px" height="30px">
+                <a href="cart.html" class="cart-icon-wrap">
+                    <img src="shopping-cart.png" width="30px" height="30px">
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
                 <img src="paragraph.png" class="menu-icon" 
                 onclick="menutoggle()">
             </div>
@@ -34,7 +35,7 @@
                 <div class="col-2">
                     <h1>Give Your House <br> A New Style!</h1>
                     <p>Everything Starts Woth A Beautiful Home</p>
-                    <a href="" class="btn">&#8618; Explore Now </a>
+                    <a href="products.html" class="btn">&#8618; Explore Now </a>
                 </div>
                 <div class="col-2">
                     <img src="Image 2.jpg">
@@ -45,186 +46,50 @@
 
  <!----- featured categories ----->
 
-        <div class="categories">
+        <div class="categories reveal">
             <div class="small-container">
                 <div class="row">
                     <div class="col-3">
-                        <img src="Vase.jpg">
+                        <a href="products.html?category=vases">
+                            <img src="Vase.jpg">
+                        </a>
                     </div>
                     <div class="col-3">
-                        <img src="LED Clock.jpg">
+                        <a href="products.html?category=clocks">
+                            <img src="LED Clock.jpg">
+                        </a>
                     </div>
                     <div class="col-3">
-                        <img src="Finian.jpg">
+                        <a href="products.html?category=decor">
+                            <img src="Finian.jpg">
+                        </a>
                     </div>                
                 </div>
             </div>
         </div>
 
-<!----- featured products -----> 
+<!----- featured products (rendered from products-data.js) -----> 
        
         <div class="small-container">
             <h2 class="title">Featured Products</h2>
            <br>
            <br>
-            <div class="row">
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
+            <div class="row reveal" id="featured-products">
+                <!-- JS fills this in -->
             </div>
 
-<!----- latest products ----->           
+<!----- latest products (rendered from products-data.js) ----->           
             
             <h2 class="title">Latest Products</h2>
             <br>
             <br>
-            <div class="row">
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
+            <div class="row reveal" id="latest-products">
+                <!-- JS fills this in -->
             </div>
         </div>
 
 <!----- offer ----->    
-    <div class="offer">
+    <div class="offer reveal">
         <div class="small-container">
             <div class="row">
                 <div class="col-2">
@@ -235,13 +100,13 @@
                     <h1>Nice Flower Vase</h1>
                     <small>Paragraph About The Vase</small>
                     <br>
-                    <a href="" class="btn">Buy Now &#8594;</a>
+                    <a href="products-details.html?id=white-flower-vase" class="btn">Buy Now &#8594;</a>
                 </div>
             </div>
         </div>
     </div>
 <!----- testimonial ----->
-<div class="testimonial">
+<div class="testimonial reveal">
     <div class="small-container">
         <div class="row">
             <div class="col-3">
@@ -289,7 +154,7 @@
 
 <!----- brands ----->
 
-     <div class="brands">
+     <div class="brands reveal">
         <div class="small-container">
             <div class="row">
                 <div class="col-5">
@@ -357,11 +222,23 @@
         }
        </script>
 
+    <!----- product data + cart + rendering ----->
+    <script src="products-data.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        // Featured = first 4 products flagged featured:true
+        var featured = PRODUCTS.filter(function(p){ return p.featured; }).slice(0, 4);
+        renderGrid("featured-products", featured);
+
+        // Latest = every product flagged latest:true
+        var latest = PRODUCTS.filter(function(p){ return p.latest; });
+        renderGrid("latest-products", latest);
+
+        updateCartBadge();
+    </script>
+
+<script src="animations.js"></script>
 <script src="script.js"></script>
 
 </body>
 </html>
-
-
-
-

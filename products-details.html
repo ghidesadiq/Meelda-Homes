@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Details - Meelda Homes</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Jersey+15&family=Pacifico&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body style="background-color: #fdf6ec;">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="logo.jpg" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="index.html" class="btn">Home</a></li>
+                        <li><a href="products.html" class="btn">Products</a></li>
+                        <li><a href="about.html" class="btn">About</a></li>
+                        <li><a href="account.html" class="btn">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html" class="cart-icon-wrap">
+                    <img src="shopping-cart.png" width="30px" height="30px">
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <img src="paragraph.png" class="menu-icon" 
+                onclick="menutoggle()">
+            </div>
+        </div>
+
+<!------ single product details (all text/images filled in by JS) ----->
+
+<div class="small-container single-product">
+    <div class="row">
+        <div class="col-2">
+        <img src="Vase.jpg" width="100%" id="ProductImg">
+        </div>
+        <div class="col-2">
+            <p id="Breadcrumb">Home / Products</p>
+            <h1 id="ProductName">Product Name</h1>
+            <h4 id="ProductPrice">$0.00</h4>
+            <select>
+                <option>Select Size</option>
+                <option>x</option>
+                <option>xl</option>
+                <option>xxl</option>
+            </select>
+            <div class="qty-stepper">
+                <button type="button" id="QtyMinus">&minus;</button>
+                <input type="number" value="1" min="1" id="QtyInput" readonly>
+                <button type="button" id="QtyPlus">+</button>
+            </div>
+            <button class="btn" id="AddToCartBtn" style="border:none; cursor:pointer;">Add To Cart</button>
+
+            <h3>Product Details <i class="fa fa-star"></i></h3>
+            <br>
+            <p id="ProductDescription">Description goes here.</p>
+        </div>
+    </div>
+</div>
+
+<!----- title ----->
+
+<div class="small-container">
+    <div class="row row-2">
+        <h2>Related Products</h2>
+        <p>View More</p>
+    </div>
+</div>
+
+<!------ related products (rendered from products-data.js) ----->
+
+        <div class="small-container">
+
+           <br>
+           <br>
+            <div class="row" id="related-products">
+                <!-- JS fills this in -->
+            </div>
+
+<!----- footer ----->
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Shop Before leaving</h3>
+                    <br>
+                    <img src="logo.jpg">
+                </div>
+                <div class="footer-col-2">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog post</li>
+                        <li>Return policy</li>
+                    </ul>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                        <li>TikTok</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2024 - Meelda Homes</p>
+        </div>
+    </div>
+
+    <!----- js for toggle menu ----->
+
+       <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px"
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else
+            {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+       </script>
+
+    <!----- product data + cart + page population ----->
+    <script src="products-data.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        // 1. Find which product this page should show, from ?id=... in the URL
+        var currentId = getQueryParam("id");
+        var product = getProductById(currentId) || PRODUCTS[0]; // fallback to first product
+
+        // 2. Fill in the text + main image
+        document.getElementById("Breadcrumb").textContent = "Home / " + product.category;
+        document.getElementById("ProductName").textContent = product.name;
+        document.getElementById("ProductPrice").textContent = "₦" + product.price.toFixed(2);
+        document.getElementById("ProductDescription").textContent = product.description;
+        document.getElementById("ProductImg").src = product.image;
+
+        // 3. Related products = same category, excluding the current product
+        var related = PRODUCTS.filter(function(p){
+            return p.category === product.category && p.id !== product.id;
+        }).slice(0, 4);
+
+        // Fallback: if nothing else in that category, just show 4 other products
+        if (related.length === 0) {
+            related = PRODUCTS.filter(function(p){ return p.id !== product.id; }).slice(0, 4);
+        }
+
+        renderGrid("related-products", related);
+
+        // 5. Wire up Add To Cart
+        updateCartBadge();
+        // Quantity stepper
+        var qtyInput = document.getElementById("QtyInput");
+        document.getElementById("QtyMinus").addEventListener("click", function(){
+            qtyInput.value = Math.max(1, parseInt(qtyInput.value) - 1);
+        });
+        document.getElementById("QtyPlus").addEventListener("click", function(){
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+        });
+
+        document.getElementById("AddToCartBtn").addEventListener("click", function(){
+            var qty = parseInt(document.getElementById("QtyInput").value) || 1;
+            addToCart(product.id, qty);
+            updateCartBadge();
+
+            var btn = this;
+            var originalText = btn.textContent;
+            btn.textContent = "Added ✓";
+            setTimeout(function(){ btn.textContent = originalText; }, 1200);
+        });
+    </script>
+
+</body>
+</html>

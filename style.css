@@ -7,6 +7,7 @@
 .navbar{display: flex;
     align-items: center;
     padding: 20px;
+    position: relative;
 
 }
 
@@ -27,6 +28,11 @@ nav ul{
 nav ul li{
     display: inline-block;
     margin-right: 20px;
+}
+
+nav ul li .btn{
+    margin: 0;
+    padding: 6px 22px;
 }
 
 a{
@@ -76,15 +82,22 @@ p{
     padding: 8px 30px;
     margin: 30px 0;
     border-radius: 30px;
-    transition: background 0.5s;
+    transition: background 0.5s, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn:hover{
     background: #563434;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.btn:active{
+    transform: translateY(-1px);
 }
 
 .header{
-    background: radial-gradient(rgb(255, 255, 255),#b65c12);
+    background: radial-gradient(#fdf6ec,#b65c12);
+    position: relative;
 }
 
 .header .row{
@@ -100,10 +113,18 @@ p{
     flex-basis: 30%;
     min-width: 250px;
     margin-bottom: 30px;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 .col-3 img{
     width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.col-3:hover img{
+    transform: scale(1.08);
 }
 
 .small-container{
@@ -131,7 +152,7 @@ p{
     margin: 0 auto;
     position: relative;
     line-height: 60px;
-    color: rgb(255, 255, 255);
+    color: #000;
 }
 
 .title::after{
@@ -308,19 +329,21 @@ ul{
 @media only screen and (max-width: 800px){
     nav ul{
         position: absolute;
-        top: 70px;
-        left: 0;
+        top: 65px;
+        right: 15px;
+        left: auto;
         background: #333;
-        width: 100px;
+        width: 160px;
+        border-radius: 8px;
         overflow: hidden;
         transition: max-height 0.5s;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        z-index: 20;
     }
     
     nav ul li{
         display: block;
-        margin-right: 50px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 15px;
     }
 
     nav ul li a{
@@ -341,7 +364,7 @@ ul{
 }
 
 select{
-    border: 1px solid #ff523b;
+    border: 1px solid none;
     padding: 5px;
 }
 
@@ -350,24 +373,42 @@ select:focus{
 }
 
 .page-btn{
+    text-align: center;
     margin: 0 auto 80px;
 }
 
 .page-btn span{
     display: inline-block;
-    border: 1px solid #ff523b;
-    margin-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 0 5px;
     width: 40px;
     height: 40px;
     text-align: center;
     line-height: 40px;
     cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #555;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.page-btn span:hover{
+.page-btn span:hover,
+.page-btn span.active{
     background: #ff523b;
-    color:#fff
+    color: #fff;
+    border-color: #ff523b;
 }
+
+/* Remove background and other styling for .btn class */
+.product-btn {
+    background: none;  /* Removes any background */
+    color: #fff;      /* Optional: Set text color */
+    text-decoration: none; /* Ensures there are no underlines */
+    padding: 0;         /* Optional: Adjust padding */
+    font-size: 16px;    /* Optional: Adjust font size */
+}
+
 
 /*----- single product details -----*/
 
@@ -440,38 +481,6 @@ input:focus{
     }
 }
 
-.menu-icon {
-    width: 30px;
-    cursor: pointer;
-    display: none; /* Hide on larger screens */
-}
-
-@media (max-width: 768px) {
-    nav ul {
-        display: none;
-        flex-direction: column;
-        background: #333;
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        width: 150px;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    nav ul li {
-        padding: 10px;
-    }
-
-    nav ul.show {
-        display: flex; /* Show when toggled */
-    }
-
-    .menu-icon {
-        display: block;
-    }
-}
-
 img {
     max-width: 100%;
     height: auto;
@@ -489,6 +498,362 @@ img {
     }
 }
 
+button:focus {
+    outline: none;
+}
 
-    
+/*----- cart icon badge -----*/
+
+.cart-icon-wrap{
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count{
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #ff523b;
+    color: #fff;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+    line-height: 18px;
+    text-align: center;
+    display: none;
+}
+
+/*----- cart page -----*/
+
+.cart-table{
+    width: 100%;
+    margin: 40px 0;
+}
+
+.cart-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+}
+
+.cart-item-info{
+    flex: 2;
+    display: flex;
+    align-items: center;
+    min-width: 250px;
+}
+
+.cart-item-info img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cart-item-qty input{
+    width: 55px;
+    height: 36px;
+    text-align: center;
+    border: 1px solid #ff523b;
+    font-size: 16px;
+}
+
+.cart-item-subtotal{
+    min-width: 90px;
+    text-align: right;
+    font-weight: bold;
+    color: #555;
+}
+
+.cart-item-remove{
+    color: #ff523b;
+    cursor: pointer;
+    margin-left: 25px;
+    font-size: 18px;
+    background: none;
+    border: none;
+}
+
+.cart-summary{
+    text-align: right;
+    margin-top: 30px;
+}
+
+.cart-summary h3{
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.cart-empty{
+    text-align: center;
+    padding: 80px 0;
+    color: #777;
+}
+
+/* Initially the page is visible */
+body {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Fade-out effect before transitioning */
+body.fade-out {
+    opacity: 0;
+}
+
+/* Fade-in effect when page loads */
+body.fade-in {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+/*----- homepage animations -----*/
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Hero text + button fade/slide in on load, staggered */
+.header .col-2:first-child h1,
+.header .col-2:first-child p,
+.header .col-2:first-child .btn{
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+.header .col-2:first-child h1{ animation-delay: 0.1s; }
+.header .col-2:first-child p{ animation-delay: 0.3s; }
+.header .col-2:first-child .btn{ animation-delay: 0.5s; }
+
+/* Hero image fades in a little after the text. A soft cream glow around
+   it (rather than masking the image itself) blends it into the gradient
+   behind it without softening the photo's own sharpness. */
+.header .col-2:last-child img{
+    opacity: 0;
+    animation: fadeIn 1s ease 0.4s forwards;
+    border-radius: 16px;
+    box-shadow: 0 0 35px 8px #fdf6ec;
+    padding: 0;
+}
+
+/* Scroll-reveal: sections fade up into view as you scroll.
+   JS (animations.js) adds "in-view" once a .reveal element enters the viewport. */
+.reveal{
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in-view{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Respect anyone who's asked their OS to minimize motion */
+@media (prefers-reduced-motion: reduce){
+    .header .col-2:first-child h1,
+    .header .col-2:first-child p,
+    .header .col-2:first-child .btn,
+    .header .col-2:last-child img{
+        animation: none;
+        opacity: 1;
+    }
+    .reveal{
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+/*----- shared page heading (for pages on the light background) -----*/
+
+.page-heading{
+    text-align: center;
+    position: relative;
+    line-height: 60px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.page-heading::after{
+    content: '';
+    background: #ff523b;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/*----- about page: value/feature cards -----*/
+
+.value-card{
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.value-card i{
+    font-size: 34px;
+    color: #ff523b;
+    margin-bottom: 15px;
+}
+
+.value-card h4{
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: 600;
+}
+
+.value-card p{
+    font-size: 14px;
+    color: #777;
+}
+
+/*----- account page: auth forms -----*/
+
+.auth-tabs{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.auth-tab{
+    padding: 10px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    color: #555;
+    font-size: 15px;
+    transition: all 0.3s;
+    background: none;
+}
+
+.auth-tab.active{
+    background: #ff523b;
+    color: #fff;
+    border-color: #ff523b;
+}
+
+.auth-form{
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.form-group{
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label{
+    display: block;
+    margin-bottom: 6px;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-group input{
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.form-group input:focus{
+    border-color: #ff523b;
+}
+
+.auth-switch{
+    text-align: center;
+    margin-top: 18px;
+    font-size: 14px;
+    color: #555;
+}
+
+.auth-switch a{
+    color: #ff523b;
+    cursor: pointer;
+}
+
+.auth-error{
+    background: #ffe9e5;
+    color: #b63b1f;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.account-welcome{
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.account-welcome .btn{
+    background: none;
+    border: 1px solid #ff523b;
+    color: #ff523b;
+}
+
+.account-welcome .btn:hover{
+    background: #ff523b;
+    color: #fff;
+}
+
+/*----- quantity stepper (replaces plain number inputs) -----*/
+
+.qty-stepper{
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.qty-stepper button{
+    background: none;
+    border: none;
+    width: 36px;
+    height: 40px;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    color: #ff523b;
+    transition: background 0.2s;
+}
+
+.qty-stepper button:hover{
+    background: #ffe9e5;
+}
+
+.qty-stepper input{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: none;
+    font-size: 15px;
+    -moz-appearance: textfield;
+    background: none;
+}
+
+.qty-stepper input::-webkit-outer-spin-button,
+.qty-stepper input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
 }

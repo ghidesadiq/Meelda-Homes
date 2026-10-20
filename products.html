@@ -2,14 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name=" viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>All Products - Meelda Homes</title>
         <link rel="stylesheet" href="style.css">
         <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Jersey+15&family=Pacifico&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     </head>
-    <body style="background-color: rgb(145, 82, 19);">
+    <body style="background-color: #fdf6ec;">
         <div class="container">
             <div class="navbar">
                 <div class="logo">
@@ -17,236 +17,39 @@
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <li><a href="">Home</a></li>
-                        <li><a href="">Products</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Account</a></li>
+                        <li><a href="index.html" class="btn">Home</a></li>
+                        <li><a href="products.html" class="btn">Products</a></li>
+                        <li><a href="about.html" class="btn">About</a></li>
+                        <li><a href="account.html" class="btn">Account</a></li>
                     </ul>
                 </nav>
-                <img src="shopping-cart.png" width="30px" height="30px">
+                <a href="cart.html" class="cart-icon-wrap">
+                    <img src="shopping-cart.png" width="30px" height="30px">
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
                 <img src="paragraph.png" class="menu-icon" 
                 onclick="menutoggle()">
-           
+            </div>
         </div>
 
         <div class="small-container">
 
          <div class="row row-2">
-            <h2>All Products</h2>
-            <select>
-                <option>Default Shoorting</option>
-                <option>Short by price</option>
-                <option>Short by popularity</option>
-                <option>Short by rating</option>
-                <option>Short by sale</option>
+            <h2 id="page-title">All Products</h2>
+            <select id="sort-select">
+                <option value="default">Default Sorting</option>
+                <option value="price-asc">Sort by price: low to high</option>
+                <option value="price-desc">Sort by price: high to low</option>
+                <option value="rating">Sort by rating</option>
             </select>
          </div>
 
            <br>
            <br>
-            <div class="row">
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-            </div>
 
-<!----- latest products ----->           
-            
-            <h2 class="title">Latest Products</h2>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Vase.jpg">
-                    <h4>Beautiful Flower Vase</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Lamp.jpg">
-                    <h4>Rope Light Lamp</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="Clock.jpg">
-                    <h4>Sparkling Gold Wall Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
-                <div class="col-4">
-                    <img src="LED Clock.jpg">
-                    <h4>LED Bedside Clock</h4>
-                    <div class="rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p>$30.00</p>
-                </div>
+            <!-- All products render here, generated from products-data.js -->
+            <div class="row" id="all-products">
+                <!-- JS fills this in -->
             </div>
 
              <div class="page-btn">
@@ -308,12 +111,58 @@
         }
        </script>
 
+    <!----- product data + cart + rendering ----->
+    <script src="products-data.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        // If we arrived here from a homepage category tile (?category=vases etc),
+        // only show products in that category.
+        var categoryFilter = getQueryParam("category");
+
+        function getBaseList() {
+            if (categoryFilter) {
+                return PRODUCTS.filter(function(p){ return p.category === categoryFilter; });
+            }
+            return PRODUCTS.slice(); // copy so we don't mutate the original
+        }
+
+        function renderSorted(sortValue) {
+            var list = getBaseList();
+            if (sortValue === "price-asc") {
+                list.sort(function(a, b){ return a.price - b.price; });
+            } else if (sortValue === "price-desc") {
+                list.sort(function(a, b){ return b.price - a.price; });
+            } else if (sortValue === "rating") {
+                list.sort(function(a, b){ return b.rating - a.rating; });
+            }
+            renderGrid("all-products", list);
+        }
+
+        // If the category has no matching products, or wasn't a real category,
+        // just fall back to showing everything rather than an empty page.
+        if (categoryFilter && getBaseList().length === 0) {
+            categoryFilter = null;
+        }
+
+        // Update the heading + show a "view all" link when filtered
+        if (categoryFilter) {
+            var label = categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1);
+            var titleEl = document.getElementById("page-title");
+            titleEl.innerHTML = label + ' <a href="products.html" style="font-size:14px; color:#ff523b; margin-left:10px;">(view all products)</a>';
+        }
+
+        // Initial render, default order
+        renderSorted("default");
+        updateCartBadge();
+
+        // Re-render whenever the dropdown changes
+        document.getElementById("sort-select").addEventListener("change", function(e){
+            renderSorted(e.target.value);
+        });
+    </script>
+
 <script src="script.js"></script>
 
 
 </body>
 </html>
-
-
-
-

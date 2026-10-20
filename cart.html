@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Cart - Meelda Homes</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Jersey+15&family=Pacifico&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body style="background-color: #fdf6ec;">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="logo.jpg" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="index.html" class="btn">Home</a></li>
+                        <li><a href="products.html" class="btn">Products</a></li>
+                        <li><a href="about.html" class="btn">About</a></li>
+                        <li><a href="account.html" class="btn">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html" class="cart-icon-wrap">
+                    <img src="shopping-cart.png" width="30px" height="30px">
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <img src="paragraph.png" class="menu-icon" 
+                onclick="menutoggle()">
+            </div>
+        </div>
+
+        <div class="small-container">
+            <div class="row row-2">
+                <h2>Your Cart</h2>
+            </div>
+
+            <!-- Cart contents render here -->
+            <div class="cart-table" id="cart-container"></div>
+
+            <div class="cart-summary" id="cart-summary" style="display:none;">
+                <h3>Total: <span id="cart-total">₦0.00</span></h3>
+                <div style="margin-bottom:15px;">
+                    <label for="CheckoutEmail" style="display:block; margin-bottom:6px; color:#555;">Email for order confirmation</label>
+                    <input type="email" id="CheckoutEmail" placeholder="you@example.com" style="width:100%; max-width:300px; height:44px; padding:0 20px; border:1px solid #ff523b; border-radius:30px; font-size:15px;">
+                </div>
+                <a href="" class="btn" id="CheckoutBtn">Proceed to Checkout &#8594;</a>
+            </div>
+        </div>
+
+<!----- footer ----->
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Shop Before leaving</h3>
+                    <br>
+                    <img src="logo.jpg">
+                </div>
+                <div class="footer-col-2">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog post</li>
+                        <li>Return policy</li>
+                    </ul>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                        <li>TikTok</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2024 - Meelda Homes</p>
+        </div>
+    </div>
+
+    <!----- js for toggle menu ----->
+
+       <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px"
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else
+            {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+       </script>
+
+    <!----- product data + cart ----->
+    <script src="products-data.js"></script>
+    <script src="config.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        function cartRowHTML(item) {
+            return `
+                <div class="cart-item" data-id="${item.id}">
+                    <div class="cart-item-info">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>₦${item.price.toFixed(2)} each</p>
+                        </div>
+                    </div>
+                    <div class="qty-stepper" data-id="${item.id}">
+                        <button type="button" class="qty-minus">&minus;</button>
+                        <input type="number" min="1" value="${item.qty}" class="qty-input" readonly>
+                        <button type="button" class="qty-plus">+</button>
+                    </div>
+                    <div class="cart-item-subtotal">₦${item.subtotal.toFixed(2)}</div>
+                    <button class="cart-item-remove" data-id="${item.id}" title="Remove">&times;</button>
+                </div>
+            `;
+        }
+
+        function renderCart() {
+            var items = getCartDetailed();
+            var container = document.getElementById("cart-container");
+            var summary = document.getElementById("cart-summary");
+
+            if (items.length === 0) {
+                container.innerHTML = '<p class="cart-empty">Your cart is empty. <a href="products.html">Browse products &#8594;</a></p>';
+                summary.style.display = "none";
+                updateCartBadge();
+                return;
+            }
+
+            container.innerHTML = items.map(cartRowHTML).join("");
+            document.getElementById("cart-total").textContent = "₦" + getCartTotal().toFixed(2);
+            summary.style.display = "block";
+
+            // Wire up quantity stepper buttons
+            document.querySelectorAll(".qty-stepper").forEach(function(stepper){
+                var id = stepper.dataset.id;
+                var input = stepper.querySelector(".qty-input");
+
+                stepper.querySelector(".qty-minus").addEventListener("click", function(){
+                    var newQty = Math.max(1, parseInt(input.value) - 1);
+                    setCartQty(id, newQty);
+                    renderCart();
+                    updateCartBadge();
+                });
+
+                stepper.querySelector(".qty-plus").addEventListener("click", function(){
+                    var newQty = parseInt(input.value) + 1;
+                    setCartQty(id, newQty);
+                    renderCart();
+                    updateCartBadge();
+                });
+            });
+
+            // Wire up remove buttons
+            document.querySelectorAll(".cart-item-remove").forEach(function(btn){
+                btn.addEventListener("click", function(){
+                    removeFromCart(this.dataset.id);
+                    renderCart();
+                    updateCartBadge();
+                });
+            });
+
+            updateCartBadge();
+        }
+
+        renderCart();
+
+        // BACKEND_URL comes from config.js (localhost when testing, live server when deployed)
+
+        document.getElementById("CheckoutBtn").addEventListener("click", async function(e){
+            e.preventDefault();
+
+            const items = getCartDetailed();
+            if (items.length === 0) return;
+
+            const email = document.getElementById("CheckoutEmail").value.trim();
+            if (!email || !email.includes("@")) {
+                alert("Please enter a valid email so we can send your order confirmation.");
+                return;
+            }
+
+            const btn = this;
+            const originalText = btn.textContent;
+            btn.textContent = "Loading...";
+
+            try {
+                const response = await fetch(BACKEND_URL + "/initialize-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: email,
+                        items: items,
+                        // success.html next to this page, wherever the site is hosted
+                        successUrl: new URL("success.html", window.location.href).href
+                    })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json().catch(() => ({}));
+                    throw new Error(errData.error || "Server responded with an error");
+                }
+
+                const data = await response.json();
+
+                if (data.url) {
+                    // Send the customer to Paystack's hosted payment page
+                    window.location.href = data.url;
+                } else {
+                    throw new Error("No payment URL returned");
+                }
+            } catch (err) {
+                console.error(err);
+                alert(
+                    "Couldn't start checkout: " + err.message + "\n\n" +
+                    "Make sure the backend is running (npm start inside the /backend folder) at " + BACKEND_URL
+                );
+                btn.textContent = originalText;
+            }
+        });
+    </script>
+
+</body>
+</html>

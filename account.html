@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Account - Meelda Homes</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Jersey+15&family=Pacifico&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body style="background-color: #fdf6ec;">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="logo.jpg" width="125px">
+                </div>
+                <nav>
+                    <ul id="MenuItems">
+                        <li><a href="index.html" class="btn">Home</a></li>
+                        <li><a href="products.html" class="btn">Products</a></li>
+                        <li><a href="about.html" class="btn">About</a></li>
+                        <li><a href="account.html" class="btn">Account</a></li>
+                    </ul>
+                </nav>
+                <a href="cart.html" class="cart-icon-wrap">
+                    <img src="shopping-cart.png" width="30px" height="30px">
+                    <span class="cart-count" id="cart-count">0</span>
+                </a>
+                <img src="paragraph.png" class="menu-icon" 
+                onclick="menutoggle()">
+            </div>
+        </div>
+
+        <div class="small-container" style="min-height: 400px; margin-top: 90px; margin-bottom: 90px;">
+            <h2 class="page-heading">Your Account</h2>
+
+            <!-- Shown when logged out -->
+            <div id="AuthSection">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="TabLogin">Log In</button>
+                    <button class="auth-tab" id="TabSignup">Create Account</button>
+                </div>
+
+                <div class="auth-error" id="AuthError"></div>
+
+                <!-- Log In form -->
+                <form class="auth-form" id="LoginForm">
+                    <div class="form-group">
+                        <label for="LoginEmail">Email</label>
+                        <input type="email" id="LoginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="LoginPassword">Password</label>
+                        <input type="password" id="LoginPassword" required>
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; border:none; cursor:pointer;">Log In</button>
+                    <p class="auth-switch">Don't have an account? <a id="SwitchToSignup">Create one</a></p>
+                </form>
+
+                <!-- Create Account form -->
+                <form class="auth-form" id="SignupForm" style="display:none;">
+                    <div class="form-group">
+                        <label for="SignupName">Full Name</label>
+                        <input type="text" id="SignupName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="SignupEmail">Email</label>
+                        <input type="email" id="SignupEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="SignupPassword">Password</label>
+                        <input type="password" id="SignupPassword" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="SignupConfirm">Confirm Password</label>
+                        <input type="password" id="SignupConfirm" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn" style="width:100%; border:none; cursor:pointer;">Create Account</button>
+                    <p class="auth-switch">Already have an account? <a id="SwitchToLogin">Log in</a></p>
+                </form>
+            </div>
+
+            <!-- Shown when logged in -->
+            <div id="WelcomeSection" class="account-welcome" style="display:none;">
+                <i class="fa fa-user-circle" style="font-size:60px; color:#ff523b;"></i>
+                <h2 style="margin: 15px 0;">Welcome back, <span id="WelcomeName"></span>!</h2>
+                <p style="color:#555;">Email: <span id="WelcomeEmail"></span></p>
+
+                <div style="margin-top:40px; text-align:left; background:#fff; padding:25px; border-radius:8px;">
+                    <h3 style="margin-bottom:10px;">Order History</h3>
+                    <p style="color:#777; font-size:14px;">You haven't placed any orders yet — once you check out, your orders will show up here.</p>
+                </div>
+
+                <br>
+                <a href="" class="btn" id="LogoutBtn">Log Out</a>
+            </div>
+        </div>
+
+<!----- footer ----->
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Shop Before leaving</h3>
+                    <br>
+                    <img src="logo.jpg">
+                </div>
+                <div class="footer-col-2">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog post</li>
+                        <li>Return policy</li>
+                    </ul>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Instagram</li>
+                        <li>Twitter</li>
+                        <li>TikTok</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2024 - Meelda Homes</p>
+        </div>
+    </div>
+
+    <!----- js for toggle menu ----->
+
+       <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px"
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px")
+            {
+                MenuItems.style.maxHeight = "200px"
+            }
+            else
+            {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+       </script>
+
+    <!----- product data + cart (for the cart badge count in nav) ----->
+    <script src="products-data.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        updateCartBadge();
+    </script>
+
+    <!-- ============================================
+         ACCOUNT DEMO — NOT REAL AUTHENTICATION
+         ============================================
+         This stores accounts in the browser's localStorage,
+         in plain text, purely so the page has something to
+         click through and feel complete. This is NOT secure
+         and should NEVER be used for a real store — anyone
+         with access to this browser can read these "passwords"
+         directly in dev tools. Real accounts need a backend
+         with a proper database and password hashing (similar
+         to the backend we built for checkout) — ask to build
+         that whenever you're ready to go further than a demo.
+         ============================================ -->
+    <script>
+        const ACCOUNTS_KEY = "meelda_demo_accounts";
+        const SESSION_KEY = "meelda_demo_session";
+
+        function getAccounts() {
+            try {
+                return JSON.parse(localStorage.getItem(ACCOUNTS_KEY)) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveAccounts(accounts) {
+            localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+        }
+
+        function getSession() {
+            try {
+                return JSON.parse(localStorage.getItem(SESSION_KEY));
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function showError(message) {
+            var errorEl = document.getElementById("AuthError");
+            errorEl.textContent = message;
+            errorEl.style.display = "block";
+        }
+
+        function clearError() {
+            document.getElementById("AuthError").style.display = "none";
+        }
+
+        function showLoggedIn(account) {
+            document.getElementById("AuthSection").style.display = "none";
+            document.getElementById("WelcomeSection").style.display = "block";
+            document.getElementById("WelcomeName").textContent = account.name;
+            document.getElementById("WelcomeEmail").textContent = account.email;
+        }
+
+        function showLoggedOut() {
+            document.getElementById("AuthSection").style.display = "block";
+            document.getElementById("WelcomeSection").style.display = "none";
+        }
+
+        // On load: check if someone's already "logged in" this browser
+        var session = getSession();
+        if (session) {
+            var accounts = getAccounts();
+            var account = accounts.find(function(a){ return a.email === session.email; });
+            if (account) {
+                showLoggedIn(account);
+            } else {
+                localStorage.removeItem(SESSION_KEY); // stale session, account no longer exists
+                showLoggedOut();
+            }
+        } else {
+            showLoggedOut();
+        }
+
+        // Tab switching
+        var tabLogin = document.getElementById("TabLogin");
+        var tabSignup = document.getElementById("TabSignup");
+        var loginForm = document.getElementById("LoginForm");
+        var signupForm = document.getElementById("SignupForm");
+
+        function switchToLogin() {
+            tabLogin.classList.add("active");
+            tabSignup.classList.remove("active");
+            loginForm.style.display = "block";
+            signupForm.style.display = "none";
+            clearError();
+        }
+
+        function switchToSignup() {
+            tabSignup.classList.add("active");
+            tabLogin.classList.remove("active");
+            signupForm.style.display = "block";
+            loginForm.style.display = "none";
+            clearError();
+        }
+
+        tabLogin.addEventListener("click", switchToLogin);
+        tabSignup.addEventListener("click", switchToSignup);
+        document.getElementById("SwitchToSignup").addEventListener("click", switchToSignup);
+        document.getElementById("SwitchToLogin").addEventListener("click", switchToLogin);
+
+        // Sign up
+        signupForm.addEventListener("submit", function(e){
+            e.preventDefault();
+            clearError();
+
+            var name = document.getElementById("SignupName").value.trim();
+            var email = document.getElementById("SignupEmail").value.trim().toLowerCase();
+            var password = document.getElementById("SignupPassword").value;
+            var confirm = document.getElementById("SignupConfirm").value;
+
+            if (password !== confirm) {
+                showError("Passwords don't match.");
+                return;
+            }
+
+            var accounts = getAccounts();
+            if (accounts.some(function(a){ return a.email === email; })) {
+                showError("An account with that email already exists. Try logging in instead.");
+                return;
+            }
+
+            var newAccount = { name: name, email: email, password: password };
+            accounts.push(newAccount);
+            saveAccounts(accounts);
+
+            localStorage.setItem(SESSION_KEY, JSON.stringify({ email: email }));
+            showLoggedIn(newAccount);
+        });
+
+        // Log in
+        loginForm.addEventListener("submit", function(e){
+            e.preventDefault();
+            clearError();
+
+            var email = document.getElementById("LoginEmail").value.trim().toLowerCase();
+            var password = document.getElementById("LoginPassword").value;
+
+            var accounts = getAccounts();
+            var match = accounts.find(function(a){ return a.email === email && a.password === password; });
+
+            if (!match) {
+                showError("Incorrect email or password.");
+                return;
+            }
+
+            localStorage.setItem(SESSION_KEY, JSON.stringify({ email: email }));
+            showLoggedIn(match);
+        });
+
+        // Log out
+        document.getElementById("LogoutBtn").addEventListener("click", function(e){
+            e.preventDefault();
+            localStorage.removeItem(SESSION_KEY);
+            switchToLogin();
+            showLoggedOut();
+        });
+    </script>
+
+<script src="animations.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
